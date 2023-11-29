@@ -1,0 +1,28 @@
+# Binaries
+/bin
+*.exe
+*.out
+
+# Vendor directory
+/vendor
+
+# Compiled Object files, Static and Dynamic libs
+*.o
+*.a
+
+# Test binary, built with 'go test -c'
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+**/.godo.json
+
+
+# Dependency directories
+/Godeps
+/Godeps/_workspace
+go.sum
+
+# Project-specific config, environment variables, etc.
+/.env
+/config
