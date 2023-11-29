@@ -7,16 +7,39 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 
 	todo "github.com/ritikdhasmana/godo"
 )
+
+func getRootPath() (string, error) {
+	executable, err := os.Executable()
+	if err != nil {
+		return "", err
+	}
+
+	// Get the directory containing the executable file.
+	// This assumes that the executable is in the same directory as the root of your project.
+	rootPath := filepath.Dir(executable)
+
+	return rootPath, nil
+}
 
 const (
 	todoFile = ".godo.json"
 )
 
 func main() {
+
+	rootPath, err := getRootPath()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	todoFilePath := filepath.Join(rootPath, todoFile)
+
 	add := flag.Bool("add", false, "Add a new todo (Type the task as flag arguement or in new line)")
 	finish := flag.Int("finish", 0, "Mark todo as finished whose id matches with the id passed")
 	id := flag.Int("id", 0, "List the todo whose id matches with the id passed")
@@ -29,7 +52,7 @@ func main() {
 	todos := &todo.Todos{}
 
 	//initial setup
-	printErrorAndExit(todos.Load(todoFile))
+	printErrorAndExit(todos.Load(todoFilePath))
 
 	switch {
 	case *add:
@@ -37,7 +60,7 @@ func main() {
 		printErrorAndExit(err)
 
 		todos.Add(task)
-		err = todos.Store(todoFile)
+		err = todos.Store(todoFilePath)
 		printErrorAndExit(err)
 		printResult(todos, "Added!")
 
@@ -46,12 +69,12 @@ func main() {
 		printErrorAndExit(err)
 
 		printErrorAndExit(todos.UpdateStatus(*setStatus, status))
-		printErrorAndExit(todos.Store(todoFile))
+		printErrorAndExit(todos.Store(todoFilePath))
 		printResult(todos, "Updated!")
 
 	case *finish > 0:
 		printErrorAndExit(todos.UpdateStatus(*finish, "Done"))
-		printErrorAndExit(todos.Store(todoFile))
+		printErrorAndExit(todos.Store(todoFilePath))
 		printResult(todos, "Updated!")
 
 	case *id > 0:
@@ -62,7 +85,7 @@ func main() {
 
 	case *delete > 0:
 		printErrorAndExit(todos.Delete(*delete))
-		printErrorAndExit(todos.Store(todoFile))
+		printErrorAndExit(todos.Store(todoFilePath))
 		printResult(todos, "Deleted!")
 
 	default:
