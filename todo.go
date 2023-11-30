@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	"time"
-
+	"path/filepath"
 	"github.com/alexeyco/simpletable"
 )
 
@@ -18,6 +18,20 @@ type item struct {
 }
 
 type Todos []item
+
+const (
+	todoFileName = ".godo.json"
+)
+
+func getAbsolutePath() (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(home, todoFileName), nil
+}
+
+
 
 func (t *Todos) Add(task string) {
 	todo := item{
@@ -49,7 +63,12 @@ func (t *Todos) Delete(taskId int) error {
 	return nil
 }
 
-func (t *Todos) Load(fileName string) error {
+func (t *Todos) Load() error {
+	fileName, err := getAbsolutePath()
+	if err != nil {
+		return err
+	}
+
 	file, err := os.ReadFile(fileName)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
@@ -67,7 +86,12 @@ func (t *Todos) Load(fileName string) error {
 	return nil
 }
 
-func (t *Todos) Store(fileName string) error {
+func (t *Todos) Store() error {
+	fileName, err := getAbsolutePath()
+	if err != nil {
+		return err
+	}
+
 	data, err := json.Marshal(t)
 	if err != nil {
 		return err

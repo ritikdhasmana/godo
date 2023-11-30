@@ -12,10 +12,6 @@ import (
 	todo "github.com/ritikdhasmana/godo"
 )
 
-const (
-	todoFile = ".godo.json"
-)
-
 func main() {
 	add := flag.Bool("add", false, "Add a new todo (Type the task as flag arguement or in new line)")
 	finish := flag.Int("finish", 0, "Mark todo as finished whose id matches with the id passed")
@@ -29,7 +25,7 @@ func main() {
 	todos := &todo.Todos{}
 
 	//initial setup
-	printErrorAndExit(todos.Load(todoFile))
+	printErrorAndExit(todos.Load())
 
 	switch {
 	case *add:
@@ -37,7 +33,7 @@ func main() {
 		printErrorAndExit(err)
 
 		todos.Add(task)
-		err = todos.Store(todoFile)
+		err = todos.Store()
 		printErrorAndExit(err)
 		printResult(todos, "Added!")
 
@@ -46,12 +42,12 @@ func main() {
 		printErrorAndExit(err)
 
 		printErrorAndExit(todos.UpdateStatus(*setStatus, status))
-		printErrorAndExit(todos.Store(todoFile))
+		printErrorAndExit(todos.Store())
 		printResult(todos, "Updated!")
 
 	case *finish > 0:
 		printErrorAndExit(todos.UpdateStatus(*finish, "Done"))
-		printErrorAndExit(todos.Store(todoFile))
+		printErrorAndExit(todos.Store())
 		printResult(todos, "Updated!")
 
 	case *id > 0:
@@ -62,7 +58,7 @@ func main() {
 
 	case *delete > 0:
 		printErrorAndExit(todos.Delete(*delete))
-		printErrorAndExit(todos.Store(todoFile))
+		printErrorAndExit(todos.Store())
 		printResult(todos, "Deleted!")
 
 	default:
