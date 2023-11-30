@@ -6,7 +6,7 @@ Why leave your nice and cozy terminal just to write tiny lil todos when you can 
 
 ![godo-gif](https://github.com/ritikdhasmana/godo/assets/54628046/5c1aa1a1-2ff1-474f-a622-3cc2b02b0c99)
 
-
+By default, it stores all todo as a json file in user's home directory(`.godo.json`)
 
 ## Installation
 
