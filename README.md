@@ -3,6 +3,8 @@ Why leave your nice and cozy terminal just to write tiny lil todos when you can 
 
 > A simple cli todo written in go.
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ritikdhasmana/godo)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ritikdhasmana/godo/release.yaml)
 
 ![godo-gif](https://github.com/ritikdhasmana/godo/assets/54628046/5c1aa1a1-2ff1-474f-a622-3cc2b02b0c99)
 
