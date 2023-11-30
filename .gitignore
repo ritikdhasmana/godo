@@ -22,7 +22,10 @@
 /Godeps
 /Godeps/_workspace
 go.sum
-
+#goreleaser
+/dist 
 # Project-specific config, environment variables, etc.
 /.env
 /config
+
+dist/
