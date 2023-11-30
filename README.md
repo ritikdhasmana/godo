@@ -11,7 +11,10 @@ Why leave your nice and cozy terminal just to write tiny lil todos when you can 
 ## Installation
 
 ### Homebrew
-
+```shell
+brew tap ritikdhasmana/ritikd
+brew install godo
+```
 
 ### Using Go
 
