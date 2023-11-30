@@ -12,14 +12,37 @@ import (
 	todo "github.com/ritikdhasmana/godo"
 )
 
+const usage = `
+Usage of godo:
+  -h, --help          Prints help information 
+  -a, --add           Add a new todo (Type the task as flag arguement or in new line)
+  -l, --list          List all todos
+  -f, --finish        Mark todo as finished whose id matches with the id passed
+  -i, --id            List the todo whose id matches with the id passed
+  -ss, --set-status   Set a custom status for todo with matching id (Pass the new status as flag arguement after passing id). Example: 'godo --set-status 1 apple'
+  -d, --delete        Deletes the todo with the passed id
+`
+
 func main() {
 	add := flag.Bool("add", false, "Add a new todo (Type the task as flag arguement or in new line)")
-	finish := flag.Int("finish", 0, "Mark todo as finished whose id matches with the id passed")
-	id := flag.Int("id", 0, "List the todo whose id matches with the id passed")
-	setStatus := flag.Int("set-status", 0, "Set a custom status for todo with matching id (Pass the new status as flag arguement after passing id). Example: 'godo --set-status 1 apple'")
-	delete := flag.Int("delete", 0, "Deletes the todo with the passed id")
-	list := flag.Bool("list", false, "List all todos")
+	flag.BoolVar(add, "a", false, "Add a new todo (Type the task as flag arguement or in new line)")
 
+	finish := flag.Int("finish", 0, "Mark todo as finished whose id matches with the id passed")
+	flag.IntVar(finish, "f", 0, "Mark todo as finished whose id matches with the id passed")
+
+	id := flag.Int("id", 0, "List the todo whose id matches with the id passed")
+	flag.IntVar(id, "i", 0, "List the todo whose id matches with the id passed")
+
+	setStatus := flag.Int("set-status", 0, "Set a custom status for todo with matching id (Pass the new status as flag arguement after passing id). Example: 'godo --set-status 1 apple'")
+	flag.IntVar(setStatus, "ss", 0, "Set a custom status for todo with matching id (Pass the new status as flag arguement after passing id). Example: 'godo --set-status 1 apple'")
+
+	delete := flag.Int("delete", 0, "Deletes the todo with the passed id")
+	flag.IntVar(delete, "d", 0, "Deletes the todo with the passed id")
+
+	list := flag.Bool("list", false, "List all todos")
+	flag.BoolVar(list, "l", false, "List all todos")
+
+	flag.Usage = func() { fmt.Print(usage) }
 	flag.Parse()
 
 	todos := &todo.Todos{}
