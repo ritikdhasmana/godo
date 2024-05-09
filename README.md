@@ -25,3 +25,7 @@ go install github.com/ritikdhasmana/godo/cmd/godo@latest
 export PATH=$PATH:$HOME/go/bin  #to add path, restart terminal or do `source ~/.xyzrc`
 ```
 
+### Further Dev
+I am not actively maintaining this but still if you have any suggestions for features or error or if you want to contribute to this feel free to reach out to me. 
+
+mail- ritikdhasmana22@gmail.com
